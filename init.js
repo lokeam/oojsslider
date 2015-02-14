@@ -57,12 +57,20 @@ var constructSlideShow = function(element, options){
             that.showCurrent(-1);
           }, false);
         }
+
+        // Toggles the full screen functionality
+        toggleFullScreen: function(elment){
+
+        } 
+
       };
-  [].forEach.call(allSlides,){
-    show = Object.create(Slideshow);
-    show.boot(element, options);
-  }
+
+      [].forEach.call(allSlides, function (element) {
+          show = Object.create(Slideshow);
+          show.init(el, options);
+      });
 };
+console.log('ding');
 
 var ops = {
   auto: {
