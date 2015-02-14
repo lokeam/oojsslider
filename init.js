@@ -58,10 +58,11 @@ var constructSlideShow = function(element, options){
           }, false);
         }
 
-        // Toggles the full screen functionality
-        toggleFullScreen: function(elment){
-
-        } 
+        // TO ADD
+        // // Toggles the full screen functionality
+        // toggleFullScreen: function(elment){
+        //   if (!document.fullscreenElement)
+        // } 
 
       };
 
