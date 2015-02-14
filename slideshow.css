@@ -1,0 +1,47 @@
+.slideshow{
+  position: relative;
+  display: block;    
+}
+.slideshow figure{
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.slideshow figure:first-child{
+  position: relative;
+}
+.slideshow figure img{ 
+  opacity: 0;
+  transition: opacity 1.2s;
+}
+.slideshow .slideshowStart img{
+  opacity: 1;
+}
+.slideshow figcaption{
+  position: absolute;
+  bottom: .75em;
+  right: .35em;
+  opacity: 0;
+  transition: opacity 1.2s;
+}
+.slideshow .slideshowStart figcaption{
+  z-index: 2;
+  opacity: 1;
+}
+.ssNextBtn, .ssPrevBtn{
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  opacity: .5;
+  user-select: none;
+}
+.ssNextBtn:hover, .ssPrevBtn:hover{  
+  cursor: pointer;
+  opacity: 1;
+}
+.ssNextBtn{
+  right: 0;
+}
+.ssPrevBtn{
+  left: 0;
+}
