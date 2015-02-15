@@ -67,8 +67,9 @@ var constructSlideShow = function(element, options){
       };
 
       [].forEach.call(allSlides, function (element) {
+          console.log('in forEach call, testing element: ', element);
           show = Object.create(Slideshow);
-          show.init(el, options);
+          show.init(element, options);
       });
 };
 console.log('ding');
@@ -80,4 +81,4 @@ var ops = {
   }
 }
 
-constructSlideShow('.demo', ops);
+constructSlideShow('#ssModule', ops);
