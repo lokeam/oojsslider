@@ -1,75 +1,64 @@
-var constructSlideShow = function(element, options){
+var createCarousel = function (element) {
   var allSlides = document.querySelectorAll(element);
-  var show = {};
+  var carouselInstance = {};
   var Slideshow = {
-    
-        // Accepts parameters and calls all methods needed to start the slideshow
-        boot: function(element, options){
-          this.counter = 0;
-          this.element = element;
-          this.items = element.querySelector('slide');
-          this.numItems = this.items.length;
-          options || {};
-          options.auto = options.auto || false;
-          this.opts = {
-            auto: (typeof options.auto === "undefined") ? false : options.auto,
-            speed: (typeof options.auto.speed === "undefined") ? 1500 : options.auto.speed
-          };
-          this.items[0].classList.add('slideshowStart')
-        },
-    
-        // Called when user changes the current slide
-        showCurrent: function(index) {
-          if( i > 0 ) {
-            this.counter = (this.counter + 1 === this.numItems) ? 0: this.counter + 1;
-          }
-          else {
-            this.counter = (this.counter - 1 < 0) ? this.numItems - 1 : this.counter - 1;
-          }
-          [].forEach.call(this.items, function(element) {
-            element.classList.remove('slideshowStart');
-          });
-          this.items[this.counter].classList.add('slideshowStart');
-        },
-    
-        // Creates all the controls needed to operate the slider
-        addControls: function(element){
-          var previousBtn = document.createElement("span");
-          var nextBtn = document.createElement("span");
-          var fragment = document.createDocumentFragment();
-         
-          previousBtn.classList.add('ssPrevBtn');
-          nextBtn.classList.add('ssNextBtn');
-          previousBtn.innerHTML = '&laquo;';
-          nextBtn.innerHTML = '&raquo;';
-          fragment.appendChild(previousBtn);
-          fragment.appendChild(nextBtn);
-          elment.appendChild(fragment);
-        },
-    
-        // Allow user interactions to initiate slideshow change
-        addEListeners: function(element){
-          var that = this;
-          element.querySelector('.ssNextBtn').addEventListener('click', function(){
-            that.showCurrent(1);
-          }, false);
-          element.querySelector('.ssPrevBtn').addEventListener('click', function(){
-            that.showCurrent(-1);
-          }, false);
-        }
-
-      };
-
-      [].forEach.call(allSlides, function (element) {
-          show = Object.create(Slideshow);
-          show.boot(element, options);
-      });
+            boot: function (element) {
+                this.counter = 0;
+                this.element = element;
+                this.slides = element.querySelectorAll('div.slides');
+                this.numItems = this.slides.length;
+                this.speed = 2000;
+                this.slides[0].classList.add('currentSlide');
+                this.addButtons(element);
+                this.addEventListeners(element);
+                this.cycle(this.element, this.speed);
+            },
+            showCurrent: function (index) {
+                if (index > 0) {
+                    this.counter = (this.counter + 1 === this.numItems) ? 0 : this.counter + 1;
+                } else {
+                    this.counter = (this.counter - 1 < 0) ? this.numItems - 1 : this.counter - 1;
+                }
+                [].forEach.call(this.slides, function (element) {
+                    element.classList.remove('currentSlide');
+                });
+                this.slides[this.counter].classList.add('currentSlide');
+            },
+            addButtons: function (element) {
+                var prevBtn = document.createElement("span");
+                var nextBtn = document.createElement("span");
+                var frag = document.createDocumentFragment();
+                prevBtn.classList.add('carouselPrevious');
+                nextBtn.classList.add('carouselNext');
+                prevBtn.innerHTML = '&laquo;';
+                nextBtn.innerHTML = '&raquo;';
+                frag.appendChild(prevBtn);
+                frag.appendChild(nextBtn);
+                element.appendChild(frag);
+            },
+            addEventListeners: function (element) {
+                var that = this;
+                element.querySelector('.carouselNext').addEventListener('click', function () {
+                    that.showCurrent(1);
+                }, false);
+            
+                element.querySelector('.carouselPrevious').addEventListener('click', function () {
+                    that.showCurrent(-1);
+                }, false);
+            },
+            cycle: function (element, slideSpeed) {
+                var that = this,
+                    interval = window.setInterval(function () {
+                        that.showCurrent(1);
+                    }, slideSpeed);
+            },
+        };
+        
+    // make instances of Slideshow as needed
+    [].forEach.call(allSlides, function (element) {
+        carouselInstance = Object.create(Slideshow);
+        carouselInstance.boot(element);
+    });
 };
 
-var ops = {
-  auto: {
-    speed:600
-  }
-}
-
-constructSlideShow('#ssModule', ops);
+createCarousel('#ssModule');
