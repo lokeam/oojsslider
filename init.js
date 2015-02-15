@@ -7,7 +7,7 @@ var constructSlideShow = function(element, options){
         boot: function(element, options){
           this.counter = 0;
           this.element = element;
-          this.items = element.querySelector('figure');
+          this.items = element.querySelector('slide');
           this.numItems = this.items.length;
           options || {};
           options.auto = options.auto || false;
@@ -20,7 +20,7 @@ var constructSlideShow = function(element, options){
     
         // Called when user changes the current slide
         showCurrent: function(index) {
-          if(i > 0) {
+          if( i > 0 ) {
             this.counter = (this.counter + 1 === this.numItems) ? 0: this.counter + 1;
           }
           else {
@@ -58,26 +58,17 @@ var constructSlideShow = function(element, options){
           }, false);
         }
 
-        // TO ADD
-        // // Toggles the full screen functionality
-        // toggleFullScreen: function(elment){
-        //   if (!document.fullscreenElement)
-        // } 
-
       };
 
       [].forEach.call(allSlides, function (element) {
-          console.log('in forEach call, testing element: ', element);
           show = Object.create(Slideshow);
-          show.init(element, options);
+          show.boot(element, options);
       });
 };
-console.log('ding');
 
 var ops = {
   auto: {
-    speed:600,
-    hoverPause:true
+    speed:600
   }
 }
 
